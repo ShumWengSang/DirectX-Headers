@@ -12,11 +12,11 @@ FetchContent_MakeAvailable(googletest)
 
 list(APPEND dxlibs "")
 if(EXISTS "/usr/lib/wsl/lib/")
-  find_library(libd3d12 d3d12 HINTS /usr/lib/wsl/lib)
+  find_library(libd3d12 d3d12 dxgi HINTS /usr/lib/wsl/lib)
   list(APPEND dxlibs ${libd3d12})
 else()
 # Fallback to default: let CMake look for libs
-  list(APPEND dxlibs d3d12)
+  list(APPEND dxlibs d3d12 dxgi)
 endif()
 
 project(DirectX-Headers-GoogleTest-Suite
@@ -28,17 +28,34 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(Feature-Support-Test feature_support_test.cpp)
-target_link_libraries(Feature-Support-Test DirectX-Headers DirectX-Guids ${dxlibs} gtest_main)
+##################################################################################################
+# Feature Support Testing                                                                        #
+##################################################################################################
+add_executable(Feature-Support-Test feature_support_test.cpp)                                    #
+target_link_libraries(Feature-Support-Test DirectX-Headers DirectX-Guids ${dxlibs} gtest_main)   #
+																								 #
+if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )                                                     #
+    target_compile_options(Feature-Support-Test PRIVATE -Wno-unused-variable)                    #
+endif()                                                                                          #
+																								 #
+if(WIN32)                                                                                        #
+    target_compile_definitions(Feature-Support-Test PRIVATE _UNICODE UNICODE _WIN32_WINNT=0x0A00)#
+																								 #
+    if(WINDOWS_STORE)                                                                            #
+      target_compile_definitions(Feature-Support-Test PRIVATE WINAPI_FAMILY=WINAPI_FAMILY_APP)   #
+    endif()                                                                                      #
+endif()                                                                                          #
+##################################################################################################
 
-if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )
-    target_compile_options(Feature-Support-Test PRIVATE -Wno-unused-variable)
-endif()
 
-if(WIN32)
-    target_compile_definitions(Feature-Support-Test PRIVATE _UNICODE UNICODE _WIN32_WINNT=0x0A00)
 
-    if(WINDOWS_STORE)
-      target_compile_definitions(Feature-Support-Test PRIVATE WINAPI_FAMILY=WINAPI_FAMILY_APP)
-    endif()
-endif()
+##################################################################################################
+# General d3dx12 Testing                                                                         #
+##################################################################################################
+add_executable(d3dx12-Test d3dx12_test.cpp)                                                      #
+target_link_libraries(d3dx12-Test DirectX-Headers DirectX-Guids ${dxlibs} gtest_main)            #
+																								 #
+if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )                                                     #
+    target_compile_options(d3dx12-Test PRIVATE -Wno-unused-variable)                             #
+endif()                                                                                          #
+##################################################################################################

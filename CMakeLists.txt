@@ -35,6 +35,7 @@ include(GNUInstallDirs)
 add_library(DirectX-Headers INTERFACE)
 target_include_directories(DirectX-Headers SYSTEM INTERFACE
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+	"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/directx>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
@@ -48,7 +49,7 @@ endif()
 
 add_library(Microsoft::DirectX-Headers ALIAS DirectX-Headers)
 
-add_library(DirectX-Guids STATIC src/dxguids.cpp)
+add_library(DirectX-Guids STATIC src/dxguids.cpp src/D3DPropertyFormatTable.cpp)
 target_link_libraries(DirectX-Guids PRIVATE DirectX-Headers)
 
 add_library(Microsoft::DirectX-Guids ALIAS DirectX-Guids)
