@@ -31,7 +31,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 ##################################################################################################
 # Feature Support Testing                                                                        #
 ##################################################################################################
-add_executable(Feature-Support-Test feature_support_test.cpp)                                    #
+add_executable(Feature-Support-Test feature_support_test.cpp d3dx12_test.cpp)                    #
 target_link_libraries(Feature-Support-Test DirectX-Headers DirectX-Guids ${dxlibs} gtest_main)   #
 																								 #
 if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )                                                     #
@@ -46,16 +46,5 @@ if(WIN32)                                                                       
     endif()                                                                                      #
 endif()                                                                                          #
 ##################################################################################################
-
-
-
-##################################################################################################
-# General d3dx12 Testing                                                                         #
-##################################################################################################
-add_executable(d3dx12-Test d3dx12_test.cpp)                                                      #
-target_link_libraries(d3dx12-Test DirectX-Headers DirectX-Guids ${dxlibs} gtest_main)            #
-																								 #
-if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )                                                     #
-    target_compile_options(d3dx12-Test PRIVATE -Wno-unused-variable)                             #
-endif()                                                                                          #
-##################################################################################################
+include(googletest)
+gtest_discover_tests(Feature-Support-Test)

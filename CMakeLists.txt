@@ -29,6 +29,8 @@ option(DXHEADERS_BUILD_GOOGLE_TEST "Build the google test suite" ${IS_TOPLEVEL_P
 
 include(GNUInstallDirs)
 
+enable_testing()
+
 # Enables consumers to add this library as a link target to automatically add
 # these include directories, regardless of whether this is referenced via subdirectory
 # or from an installed location
