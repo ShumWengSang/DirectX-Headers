@@ -151,14 +151,14 @@ TEST_F(Direct3DInstance, NoSubresourceGetFootprint) {
     textureDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
 
     // Use the internal and 100% correct ID3D12Device::GetCopyableFootprint to compare against
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT correctFootprint;
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT correctFootprint{};
     UINT correctNumberOfRows;
     UINT64 correctRowSizeInBytes;
     UINT64 correctTotalBytes;
 
     m_device->GetCopyableFootprints(&textureDesc, 0, 1, 0, &correctFootprint, &correctNumberOfRows, &correctRowSizeInBytes, &correctTotalBytes);
 
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT testFootprint;
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT testFootprint{};
     UINT testNumberOfRows;
     UINT64 testRowSizeInBytes;
     UINT64 testTotalBytes;
@@ -187,24 +187,25 @@ TEST_F(Direct3DInstance, MimapSubresourceGetFootprint) {
     textureDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
 
     // Use the internal and 100% correct ID3D12Device::GetCopyableFootprint to compare against
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT correctFootprint;
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT correctFootprint{};
     UINT correctNumberOfRows;
     UINT64 correctRowSizeInBytes;
     UINT64 correctTotalBytes;
 
     m_device->GetCopyableFootprints(&textureDesc, 0, 1, 0, &correctFootprint, &correctNumberOfRows, &correctRowSizeInBytes, &correctTotalBytes);
 
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT testFootprint;
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT testFootprint{};
     UINT testNumberOfRows;
     UINT64 testRowSizeInBytes;
     UINT64 testTotalBytes;
     D3DX12GetCopyableFootprints(textureDesc, 0, 1, 0, &testFootprint, &testNumberOfRows, &testRowSizeInBytes, &testTotalBytes);
 
-    EXPECT_TRUE(0 == std::memcmp(&correctFootprint, &testFootprint, sizeof(correctFootprint)));
+
     EXPECT_EQ(correctNumberOfRows, testNumberOfRows);
     EXPECT_EQ(correctNumberOfRows, testNumberOfRows);
     EXPECT_EQ(correctRowSizeInBytes, testRowSizeInBytes);
     EXPECT_EQ(correctTotalBytes, testTotalBytes);
+	EXPECT_TRUE(0 == std::memcmp(&correctFootprint, &testFootprint, sizeof(correctFootprint)));
 }
 
 // Test for array slices subresource
@@ -223,14 +224,14 @@ TEST_F(Direct3DInstance, ArraySlicesSubresourceGetFootprint) {
     textureDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
 
     // Use the internal and 100% correct ID3D12Device::GetCopyableFootprint to compare against
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT correctFootprint;
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT correctFootprint{};
     UINT correctNumberOfRows;
     UINT64 correctRowSizeInBytes;
     UINT64 correctTotalBytes;
 
     m_device->GetCopyableFootprints(&textureDesc, 0, 1, 0, &correctFootprint, &correctNumberOfRows, &correctRowSizeInBytes, &correctTotalBytes);
 
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT testFootprint;
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT testFootprint{};
     UINT testNumberOfRows;
     UINT64 testRowSizeInBytes;
     UINT64 testTotalBytes;
@@ -259,14 +260,14 @@ TEST_F(Direct3DInstance, PlanesSubresourceGetFootprint) {
     textureDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
 
     // Use the internal and 100% correct ID3D12Device::GetCopyableFootprint to compare against
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT correctFootprint;
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT correctFootprint{};
     UINT correctNumberOfRows;
     UINT64 correctRowSizeInBytes;
     UINT64 correctTotalBytes;
 
     m_device->GetCopyableFootprints(&textureDesc, 0, 1, 0, &correctFootprint, &correctNumberOfRows, &correctRowSizeInBytes, &correctTotalBytes);
 
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT testFootprint;
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT testFootprint{};
     UINT testNumberOfRows;
     UINT64 testRowSizeInBytes;
     UINT64 testTotalBytes;
@@ -295,14 +296,14 @@ TEST_F(Direct3DInstance, ComprehensiveSubresourceGetFootprint) {
     textureDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
 
     // Use the internal and 100% correct ID3D12Device::GetCopyableFootprint to compare against
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT correctFootprint;
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT correctFootprint{};
     UINT correctNumberOfRows;
     UINT64 correctRowSizeInBytes;
     UINT64 correctTotalBytes;
 
     m_device->GetCopyableFootprints(&textureDesc, 0, 1, 0, &correctFootprint, &correctNumberOfRows, &correctRowSizeInBytes, &correctTotalBytes);
 
-    D3D12_PLACED_SUBRESOURCE_FOOTPRINT testFootprint;
+    D3D12_PLACED_SUBRESOURCE_FOOTPRINT testFootprint{};
     UINT testNumberOfRows;
     UINT64 testRowSizeInBytes;
     UINT64 testTotalBytes;
