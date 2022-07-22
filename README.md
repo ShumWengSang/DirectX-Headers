@@ -1,6 +1,6 @@
 # DirectX Headers
 
-[![Github Actions GTest](https://github.com/ShumWengSang/DirectX-Headers/workflows/cmake.yml/badge.svg?branch=master)](https://github.com/ShumWengSang/DirectX-Headers//workflows/cmake.yml)
+[![Github Actions GTest(https://github.com/ShumWengSang/DirectX-Headers/actions/workflows/cmake.yml)](https://github.com/ShumWengSang/DirectX-Headers/actions/workflows/cmake.yml/badge.svg)
 
 This repository hosts the official Direct3D 12 headers. These headers are made available under the MIT license rather than the traditional Windows SDK license.
 
